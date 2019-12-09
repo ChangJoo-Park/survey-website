@@ -47,8 +47,18 @@ module.exports = {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    'cookie-universal-nuxt'
+    'cookie-universal-nuxt',
+    'nuxt-socket-io'
   ],
+  io: {
+    sockets: [
+      {
+        name: 'home',
+        url: 'http://localhost:3000',
+        default: true,
+      }
+    ]
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options

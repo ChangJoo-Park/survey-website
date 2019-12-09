@@ -29,6 +29,34 @@ export default {
     })
     return { survey: data, participants }
   },
+  data () {
+    socket: null
+  },
+  mounted () {
+    Notification.requestPermission(function (status) {
+      // This allows to use Notification.permission with Chrome/Safari
+      if (Notification.permission !== status) {
+        Notification.permission = status;
+      }
+    })
+
+    this.socket = this.$nuxtSocket({ reconnection: false })
+    this.socket.on('test', (payload) => {
+      console.log('test => ', payload)
+    })
+
+    this.socket.on(`someone-take-a-survey/${this.survey._id}`, ({ sender, event, payload }) => {
+      this.$axios({ url: `http://localhost:3000/api/surveys/${this.survey._id}/participate` })
+      .then(({data: participants }) => {
+        this.participants = participants
+      })
+      new Notification('새로운 참여가 있습니다.')
+    })
+  },
+  beforeDestroy() {
+    this.socket.close()
+    this.socket = null
+  },
   methods: {
     findQuestionById(id) {
       return this.survey.questions[this.survey.questions.findIndex((q) => q._id === id)]
