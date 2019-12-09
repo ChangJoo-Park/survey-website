@@ -1,78 +1,93 @@
 <template>
   <div class="container mx-auto max-w-3xl">
-    <div class="text-center">
-      <input type="text" v-model="survey.title" class="text-xl w-full"><br>
-      <input type="text" v-model="survey.description" class="text-lg w-full">
-      <label for=""><input type="checkbox" v-model="survey.public">&nbsp;공개함</label>
+    <div class="mb-6">
+      <div class="mb-2">
+        <input type="text" v-model="survey.title" class="text-2xl w-full font-bold border rounded p-2 border-gray-700">
+      </div>
+      <div class="mb-2">
+        <input type="text" v-model="survey.description" class="text-lg w-full border rounded p-2 border-gray-700">
+      </div>
+      <label for=""><input type="checkbox" v-model="survey.public">&nbsp;공개</label>
     </div>
+
     <div class="flex items-stretch w-full">
       <aside id="block-types" class="mr-4">
         <div
           v-for="(type, index) in blockTypes"
           :key="index"
-          class="border px-4 py-2 cursor-pointer hover:bg-gray-100 mb-2"
+          class="border border-gray-600 hover:bg-gray-600 hover:text-gray-100 rounded px-4 py-2 cursor-pointer hover:bg-gray-100 mb-2"
           style="min-width: 200px;"
           @click="addBlockWithType(type)"
         >
           {{ type.label }}
         </div>
       </aside>
+
       <main id="questions" class="flex-1 p-4">
         <div v-if="questions.length === 0" class="w-full h-full flex items-center justify-center">질문이 없습니다.</div>
+
         <form @submit.prevent="update" v-else>
-            <div class="text-right mb-4">
-              <input type="submit" value="UPDATE" class="cursor-pointer border py-2 px-4">
-            </div>
-        <draggable
-          v-model="questions"
-          handle=".drag-handle"
-          ghost-class="ghost"
-          @change="updated"
-        >
-          <transition-group>
-            <div v-for="(element, index) in questions" :key="index" class="p-2 border mb-2">
-                <div class="mb-2">
-                  <span class="drag-handle cursor-pointer">:::</span>
-                  <label class="text-xl">{{ element.label }} 질문: </label>
-                  <input type="text" v-model="element.question" class="border w-full px-2 py-2" placeholder="질문을 입력하세요" required>
-                </div>
-                <!-- Checkbox -->
-                <template v-if="element.type === 'checkbox'">
-                  <div v-for="(option, index) in element.options" :key="index" class="flex justify-between">
-                    <label for="" class="flex-1 flex py-2 items-center mr-2">
-                      <input type="checkbox" disabled>&nbsp;
-                      <input type="text" v-model="option.label" class="flex-1 px-2 py-2 border border-gray-400">
-                    </label>
-                    <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
+          <div class="text-right mb-4">
+            <input type="submit" value="저장" class="button--grey cursor-pointer">
+          </div>
+          <draggable
+            v-model="questions"
+            handle=".drag-handle"
+            ghost-class="ghost"
+            @change="updated"
+          >
+            <transition-group>
+              <div v-for="(element, index) in questions" :key="index" class="p-2 border mb-2">
+                  <div class="mb-2">
+                    <div class="mb-2">
+                      <span class="drag-handle cursor-pointer">:::</span>
+                      <label class="text-xl">{{ element.label }} 질문</label>
+                    </div>
+                    <input type="text" v-model="element.question" class="w-full border rounded p-2 border-gray-700" placeholder="질문을 입력하세요" required>
                   </div>
-                  <button @click="element.options.push({ value: '', label: ''})">항목 추가</button>
-                </template>
-                <template v-if="element.type === 'radio'">
-                  <div v-for="(option, index) in element.options" :key="index" class="flex justify-between">
-                    <label for="" class="flex-1 flex py-2 items-center mr-2">
-                      <input type="radio" disabled>&nbsp;
-                      <input type="text" v-model="option.label" class="flex-1 px-2 py-2 border border-gray-400" required>
-                    </label>
-                    <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
+                  <!-- Checkbox -->
+                  <template v-if="element.type === 'checkbox'">
+                    <div v-for="(option, index) in element.options" :key="index" class="flex justify-between">
+                      <label for="" class="flex-1 flex py-2 items-center mr-2">
+                        <input type="checkbox" disabled>&nbsp;
+                        <input type="text" v-model="option.label" class="flex-1 w-full border rounded p-2 border-gray-700">
+                      </label>
+                      <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
+                    </div>
+                    <button @click="element.options.push({ value: '', label: ''})">항목 추가</button>
+                  </template>
+                  <template v-if="element.type === 'radio'">
+                    <div v-for="(option, index) in element.options" :key="index" class="flex justify-between">
+                      <label for="" class="flex-1 flex py-2 items-center mr-2">
+                        <input type="radio" disabled>&nbsp;
+                        <input type="text" v-model="option.label" class="flex-1 w-full border rounded p-2 border-gray-700" required>
+                      </label>
+                      <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
+                    </div>
+                    <div class="text-right">
+                      <button
+                        @click="element.options.push({ value: false, label: ''})"
+                        class="underline"
+                      >
+                        항목 추가
+                      </button>
+                    </div>
+                  </template>
+                  <template v-if="element.type === 'datetime'">
+                  </template>
+                  <template v-if="element.type === 'date'">
+                  </template>
+                  <template v-if="element.type === 'time'">
+                  </template>
+                  <div slot="footer" class="mt-4 text-right">
+                    <button @click="questions.splice(index, 1)" class="text-sm">이 질문 삭제</button>
                   </div>
-                  <button @click="element.options.push({ value: false, label: ''})">항목 추가</button>
-                </template>
-                <template v-if="element.type === 'datetime'">
-                </template>
-                <template v-if="element.type === 'date'">
-                </template>
-                <template v-if="element.type === 'time'">
-                </template>
-                <div slot="footer" class="text-right">
-                  <button @click="questions.splice(index, 1)">이 질문 삭제</button>
-                </div>
-            </div>
-          </transition-group>
-        </draggable>
+              </div>
+            </transition-group>
+          </draggable>
         </form>
       </main>
     </div>
-    {{ questions }}
   </div>
 </template>
 

@@ -1,19 +1,41 @@
 <template>
-  <div class="container mx-auto">
-    <div class="mb-4">
+  <div class="max-w-3xl mx-auto">
+    <header class="mb-4">
       <h1 class="text-2xl font-bold">{{ survey.title }}</h1>
-      <p>{{ survey.description }}</p>
-      총 참여자 {{ participants.total }} 명
-    </div>
+      <p class="mb-2">{{ survey.description }}</p>
+    </header>
     <div>
-      <ul>
-        <li v-for="item in participants.rows" :key="item._id" class="border px-4 py-2 mb-4">
-          {{ item._id }}
-          <div v-for="(answer, index) in item.answers" :key="index">
-            {{ findQuestionById(answer._id).question }} => {{ answer.value }}
-          </div>
-        </li>
-      </ul>
+      <table class="w-full mb-4">
+        <thead>
+          <tr>
+            <th>_id</th>
+            <th v-for="q in questions" :key="q._id">
+              {{ q.question }}
+            </th>
+            <th>actions</th>
+          </tr>
+        </thead>
+        <!-- Body -->
+        <tbody>
+          <tr v-for="item in participants.rows" :key="item._id" class="border-b border-black hover:bg-gray-900 hover:text-gray-100">
+            <td class="py-2 pl-2">{{ item._id }}</td>
+            <td v-for="(answer, index) in item.answers" :key="index" class="py-2">
+              {{ answer.value }}
+            </td>
+            <td class="text-center pr-2">
+              <button>삭제</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="py-2 text-right">
+        <div class="mb-2">
+          <button v-for="page in participants.totalPages" :key="page" class="inline-block px-4 py-2 border border-black hover:bg-black hover:text-white rounded mr-2 cursor-pointer">
+            {{ page }}
+          </button>
+        </div>
+        <div class="font-mono">총 참여자 {{ participants.total }} 명</div>
+      </div>
     </div>
   </div>
 </template>
@@ -27,7 +49,8 @@ export default {
     const { data: participants } = await app.$axios({
       url: `/surveys/${params.id}/participate`,
     })
-    return { survey: data, participants }
+
+    return { survey: data, participants, questions: data.questions }
   },
   data () {
     socket: null
