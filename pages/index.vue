@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="">
     <div>
       <logo />
       <h1 class="title">
@@ -45,6 +45,17 @@
         </template>
       </div>
     </div>
+
+    <div>
+      <h1 class="">공개된 설문 목록</h1>
+      <ul>
+        <li v-for="survey in surveys" :key="survey._id">
+          <nuxt-link :to="{ name: 'take-id', params: { id: survey._id } }">
+            {{ survey.title }}
+          </nuxt-link>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -53,6 +64,12 @@ import Logo from '~/components/Logo.vue'
 import { mapGetters } from 'Vuex'
 
 export default {
+  async asyncData ({ app, query, req, params }) {
+    const { data } = await app.$axios({
+      url: `http://localhost:3000/api/surveys/public`,
+    })
+    return { surveys: data }
+  },
   components: {
     Logo
   },
@@ -68,15 +85,6 @@ export default {
   @apply min-h-screen flex justify-center items-center text-center mx-auto;
 }
 */
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
 .title {
   font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
     'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;

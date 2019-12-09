@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <h1>인덱스</h1>
+  <div class="container mx-auto">
     <div>
       <ul>
-        <li v-for="survey in publicSurveys" :key="survey._id">
+        <nuxt-link
+          v-for="survey in publicSurveys"
+          :key="survey._id"
+          tag="li"
+          :to="{ name: 'surveys-id', params: { id: survey._id } }"
+        >
           {{ survey._id }} - {{ survey.title }} <button @click="remove(survey._id)">X</button>
-        </li>
+        </nuxt-link>
       </ul>
     </div>
     <hr>

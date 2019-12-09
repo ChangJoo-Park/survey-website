@@ -3,13 +3,14 @@
     <div class="text-center">
       <input type="text" v-model="survey.title" class="text-xl w-full"><br>
       <input type="text" v-model="survey.description" class="text-lg w-full">
+      <label for=""><input type="checkbox" v-model="survey.public">&nbsp;공개함</label>
     </div>
     <div class="flex items-stretch w-full">
       <aside id="block-types" class="mr-4">
         <div
           v-for="(type, index) in blockTypes"
           :key="index"
-          class="border px-4 py-2 cursor-pointer hover:bg-gray-100"
+          class="border px-4 py-2 cursor-pointer hover:bg-gray-100 mb-2"
           style="min-width: 200px;"
           @click="addBlockWithType(type)"
         >
@@ -44,7 +45,7 @@
                     </label>
                     <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
                   </div>
-                  <button @click="element.options.push({ value: '', label: ''})">추가</button>
+                  <button @click="element.options.push({ value: '', label: ''})">항목 추가</button>
                 </template>
                 <template v-if="element.type === 'radio'">
                   <div v-for="(option, index) in element.options" :key="index" class="flex justify-between">
@@ -54,11 +55,16 @@
                     </label>
                     <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
                   </div>
-                  <button @click="element.options.push({ value: false, label: ''})">추가</button>
+                  <button @click="element.options.push({ value: false, label: ''})">항목 추가</button>
                 </template>
-                <!-- Radio -->
+                <template v-if="element.type === 'datetime'">
+                </template>
+                <template v-if="element.type === 'date'">
+                </template>
+                <template v-if="element.type === 'time'">
+                </template>
                 <div slot="footer" class="text-right">
-                  <button @click="questions.splice(index, 1)">REMOVE</button>
+                  <button @click="questions.splice(index, 1)">이 질문 삭제</button>
                 </div>
             </div>
           </transition-group>
@@ -72,7 +78,7 @@
 
 <script>
 import draggable from 'vuedraggable'
-
+import shortid from 'shortid'
 export default {
   components: {
     draggable
@@ -103,12 +109,26 @@ export default {
           type: 'radio',
           label: '라디오'
         },
+        {
+          type: 'datetime',
+          label: '날짜 & 시간'
+        },
+        {
+          type: 'date',
+          label: '날짜'
+        },
+        {
+          type: 'time',
+          label: '시간'
+        },
+
       ]
     }
   },
   methods: {
     addBlockWithType(item) {
       this.questions.push({
+        _id: shortid.generate(),
         question: '',
         type: item.type,
         label: item.label,

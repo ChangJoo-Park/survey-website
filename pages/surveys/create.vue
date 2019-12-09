@@ -1,13 +1,15 @@
 <template>
-  <div>
+  <div class="container mx-auto">
     <form @submit.prevent="submit">
       <div class="mb-4">
-        <input type="text" v-model="survey.title" class="border">
+        <div><label for="">새 설문 이름</label></div>
+        <input type="text" v-model="survey.title" class="border" required>
       </div>
       <div class="mb-4">
+        <div><label for="">새 설문 소개</label></div>
         <input type="text" v-model="survey.description" class="border">
       </div>
-      <input type="submit" value="Submit">
+      <input type="submit" value="만들기">
     </form>
   </div>
 </template>
@@ -33,7 +35,8 @@ export default {
         }
       })
       .then(response => {
-        this.$router.push({ name: 'surveys' })
+        const { data } = response
+        this.$router.push({ name: 'surveys-id-edit', params: { id: data._id } })
       })
     }
   }

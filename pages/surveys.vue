@@ -1,8 +1,10 @@
 <template>
-  <div>
-    <nuxt-link :to="{ name: 'surveys' }">HOME</nuxt-link>&nbsp;
-    <nuxt-link :to="{ name: 'surveys-create' }">NEW SURVEY</nuxt-link>&nbsp;
-    <button @click="signout">SignOut</button>
+  <div class="">
+    <div class="flex items-center px-4" style="height: 3rem;">
+      <nuxt-link :to="{ name: 'surveys' }">HOME</nuxt-link>&nbsp;
+      <nuxt-link :to="{ name: 'surveys-create' }">NEW SURVEY</nuxt-link>&nbsp;
+      <button @click="signout">SignOut</button>
+    </div>
     <nuxt-child />
   </div>
 </template>
