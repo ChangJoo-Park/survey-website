@@ -95,9 +95,8 @@ export default {
       const participant = {
         survey: this.survey._id,
         answers: Object.keys(this.answers).map(key => ({ _id: key, value: this.answers[key].value })),
-        ua: parser.getResult()
+        ua: parser.getUA()
       }
-
       this.$axios({
         url: `http://localhost:3000/api/surveys/${this.survey._id}/participate`,
         method: 'POST',
