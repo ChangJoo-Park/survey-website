@@ -1,15 +1,17 @@
 <template>
-  <div class="container mx-auto">
-    <form @submit.prevent="submit">
+  <div class="container mx-auto flex flex-col justify-center items-center" style="height: calc(100vh - 3rem);">
+    <form @submit.prevent="submit" class="w-full max-w-xl mb-20">
       <div class="mb-4">
-        <div><label for="">새 설문 이름</label></div>
-        <input type="text" v-model="survey.title" class="border" required>
+        <div class="text-4xl"><label for="">새 설문 이름</label></div>
+        <input type="text" v-model="survey.title" class="w-full border rounded p-2 border-gray-700 text-xl" required autofocus>
       </div>
       <div class="mb-4">
-        <div><label for="">새 설문 소개</label></div>
-        <input type="text" v-model="survey.description" class="border">
+        <div class="text-4xl"><label for="">짧은 소개</label></div>
+        <input type="text" v-model="survey.description" class="w-full border rounded p-2 border-gray-700 text-xl">
       </div>
-      <input type="submit" value="만들기">
+      <div class="text-right">
+        <input type="submit" value="만들기" class="border rounded border border-gray-900 bg-gray-900 text-gray-100 py-2 px-4 hover:shadow cursor-pointer text-xl">
+      </div>
     </form>
   </div>
 </template>
