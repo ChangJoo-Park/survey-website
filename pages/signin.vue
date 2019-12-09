@@ -32,7 +32,7 @@ export default {
     async submit() {
       const { data: { user } } = await this.$axios({
         method: 'POST',
-        url: 'http://localhost:3000/api/users/signin',
+        url: '/users/signin',
         data: {
           user: this.user
         }

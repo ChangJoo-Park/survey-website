@@ -85,7 +85,7 @@ export default {
   },
   async asyncData ({ app, query, req, params }) {
     const { data } = await app.$axios({
-      url: `http://localhost:3000/api/surveys/${params.id}`,
+      url: `/surveys/${params.id}`,
     })
     const questions = data.questions || []
     return { survey: data, questions }
@@ -174,7 +174,7 @@ export default {
         questions: this.questions
       }
       this.$axios({
-        url: `http://localhost:3000/api/surveys/${this.survey._id}`,
+        url: `/surveys/${this.survey._id}`,
         method: 'PUT',
         data: { survey }
       })

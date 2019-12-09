@@ -1,10 +1,5 @@
 import axios from 'axios'
 
-function getCookie (cookieName, stringCookie) {
-  let strCookie = new RegExp('' + cookieName + '[^;]+').exec(stringCookie)[0]
-  return unescape(strCookie ? strCookie.toString().replace(/^[^=]+./, '') : '')
-}
-
 export const state = () => ({
   accessToken: null,
   user: null

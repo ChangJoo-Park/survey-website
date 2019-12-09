@@ -28,7 +28,7 @@ export default {
   methods: {
     submit () {
       this.$axios({
-        url: 'http://localhost:3000/api/surveys',
+        url: '/surveys',
         method: 'POST',
         data: {
           survey: this.survey

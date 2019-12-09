@@ -34,11 +34,11 @@ import { mapGetters } from 'Vuex'
 export default {
   async asyncData ({app, query, req}) {
     const response = await Promise.all([app.$axios({
-      url: 'http://localhost:3000/api/me',
+      url: '/me',
     }), app.$axios({
-      url: 'http://localhost:3000/api/surveys/public'
+      url: '/surveys/public'
     }), app.$axios({
-      url: 'http://localhost:3000/api/surveys/private',
+      url: '/surveys/private',
     })])
 
     const user = response[0].data
@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     async remove(id) {
-      const response = await this.$axios({ url: `http://localhost:3000/api/surveys/${id}`, method: 'DELETE' })
+      const response = await this.$axios({ url: `/surveys/${id}`, method: 'DELETE' })
     }
   }
 }

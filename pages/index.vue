@@ -66,7 +66,7 @@ import { mapGetters } from 'Vuex'
 export default {
   async asyncData ({ app, query, req, params }) {
     const { data } = await app.$axios({
-      url: `http://localhost:3000/api/surveys/public`,
+      url: `/surveys/public`,
     })
     return { surveys: data }
   },

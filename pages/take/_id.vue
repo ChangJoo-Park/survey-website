@@ -62,7 +62,7 @@ import UAParser from 'ua-parser-js'
 export default {
   async asyncData ({ app, query, req, params }) {
     const { data } = await app.$axios({
-      url: `http://localhost:3000/api/surveys/${params.id}`,
+      url: `/surveys/${params.id}`,
     })
     let answers = {}
     data.questions
@@ -98,7 +98,7 @@ export default {
         ua: parser.getUA()
       }
       this.$axios({
-        url: `http://localhost:3000/api/surveys/${this.survey._id}/participate`,
+        url: `/surveys/${this.survey._id}/participate`,
         method: 'POST',
         data: { participant }
       })

@@ -22,10 +22,10 @@
 export default {
   async asyncData ({ app, query, req, params }) {
     const { data } = await app.$axios({
-      url: `http://localhost:3000/api/surveys/${params.id}`,
+      url: `/surveys/${params.id}`,
     })
     const { data: participants } = await app.$axios({
-      url: `http://localhost:3000/api/surveys/${params.id}/participate`,
+      url: `/surveys/${params.id}/participate`,
     })
     return { survey: data, participants }
   },
@@ -46,11 +46,11 @@ export default {
     })
 
     this.socket.on(`someone-take-a-survey/${this.survey._id}`, ({ sender, event, payload }) => {
-      this.$axios({ url: `http://localhost:3000/api/surveys/${this.survey._id}/participate` })
+      this.$axios({ url: `/surveys/${this.survey._id}/participate` })
       .then(({data: participants }) => {
         this.participants = participants
       })
-      new Notification('새로운 참여가 있습니다.')
+      const notification = new Notification('새로운 참여가 있습니다.')
     })
   },
   beforeDestroy() {
