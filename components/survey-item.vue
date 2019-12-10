@@ -8,12 +8,12 @@
     </div>
     <div class="px-4 text-sm">
       <span v-if="survey.questions">
-        {{ survey.questions.length }}개 질문
+        질문 {{ survey.questions.length }}개
       </span>
-      <span v-else>질문 없음</span>
+      <span v-else class="text-indigo-700">질문 없음</span>
       /
-      <span v-if="survey.participantsCount">{{ survey.participantsCount }}회 참여</span>
-      <span v-else>참여 없음</span>
+      <span v-if="survey.participantsCount">참여 {{ survey.participantsCount }}회</span>
+      <span v-else class="text-indigo-700">참여 없음</span>
     </div>
     <div class="px-4">
       <span class="font-mono text-xs">{{ updatedAt }}</span>
