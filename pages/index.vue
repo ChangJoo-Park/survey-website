@@ -1,60 +1,28 @@
 <template>
-  <div class="">
-    <div>
-      <logo />
-      <h1 class="title">
-        frontend
-      </h1>
-      <h2 class="subtitle">
-        My ultimate Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-        <template v-if="loggedInUser">
-          <nuxt-link
-            :to="{ name: 'surveys' }"
-            class="button--grey"
-          >
-            Go to App
-          </nuxt-link>
-        </template>
-        <template v-else>
-          <nuxt-link
-            :to="{ name: 'signin' }"
-          >
-            Sign In
-          </nuxt-link>
-          <nuxt-link
-            :to="{ name: 'signup' }"
-          >
-            Sign Up
-          </nuxt-link>
-        </template>
+  <div class="container mx-auto">
+    <div class="flex items-center px-2" style="height: 3rem;">
+      <div class="font-mono flex-1">
+        MoleculerSurvey
       </div>
-    </div>
-
-    <div>
-      <h1 class="">공개된 설문 목록</h1>
-      <ul>
-        <li v-for="survey in surveys" :key="survey._id">
-          <nuxt-link :to="{ name: 'take-id', params: { id: survey._id } }">
-            {{ survey.title }}
-          </nuxt-link>
-        </li>
-      </ul>
+      <div class="" v-if="loggedInUser">
+        <nuxt-link
+          :to="{ name: 'surveys' }"
+        >
+          Go to App
+        </nuxt-link>
+      </div>
+      <div v-else>
+        <nuxt-link
+          :to="{ name: 'signin' }"
+        >
+          Sign In
+        </nuxt-link>
+        <nuxt-link
+          :to="{ name: 'signup' }"
+        >
+          Sign Up
+        </nuxt-link>
+      </div>
     </div>
   </div>
 </template>
@@ -64,12 +32,6 @@ import Logo from '~/components/Logo.vue'
 import { mapGetters } from 'Vuex'
 
 export default {
-  async asyncData ({ app, query, req, params }) {
-    const { data } = await app.$axios({
-      url: `/surveys/public`,
-    })
-    return { surveys: data }
-  },
   components: {
     Logo
   },
