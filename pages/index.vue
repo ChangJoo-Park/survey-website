@@ -4,13 +4,14 @@
       <div class="container mx-auto">
         <div class="flex items-center px-2" style="height: 3rem;">
           <div class="font-mono flex-1">
-            MoleculerSurvey
+            <a href="/">MoleculerSurvey</a>
           </div>
           <div class="" v-if="loggedInUser">
             <nuxt-link
               :to="{ name: 'surveys' }"
+              class="app--landing nav--link font-mono"
             >
-              앱으로
+              {{ loggedInUser.username }}
             </nuxt-link>
           </div>
           <div v-else>
@@ -31,42 +32,84 @@
       </div>
     </div>
     <!-- Main -->
-    <div class="jumbotron py-40 bg-gray-100">
+    <div class="jumbotron py-40 border-b border-b-8 border-indigo-900">
       <div class="container mx-auto">
-        <h1 class="text-xl text-center font-mono">설문을 만들고, 참여하세요</h1>
+        <div>
+          <h1 class="text-6xl text-center font-mono font-bold">Moleculer Survey</h1>
+        </div>
+        <div class="mb-8">
+          <p class="text-xl text-center font-mono">설문을 만들고, 참여하세요</p>
+        </div>
+        <div class="flex justify-center items-center">
+          <div v-if="loggedInUser">
+            <div class="mb-2">{{ loggedInUser.username}}님 안녕하세요</div>
+            <div>
+              <nuxt-link class="form--button" :to="{ name: 'surveys' }">
+                새로운 설문을 만들어보세요
+              </nuxt-link>
+            </div>
+          </div>
+          <nuxt-link class="form--button" v-else :to="{ name: 'signup' }">
+            시작하기
+          </nuxt-link>
+        </div>
       </div>
     </div>
-    <div class="py-40">
-      <div class="container mx-auto flex justify-center items-center">
-        <nuxt-link
-          v-if="loggedInUser"
-          class="border rounded bg-black border-black text-white text-xl px-4 py-2"
-          :to="{ name: 'surveys' }"
-        >
-          새 설문 만들기
-        </nuxt-link>
-        <nuxt-link
-          class="border rounded bg-black border-black text-white text-xl px-4 py-2"
-          v-else
-          :to="{ name: 'signup' }"
-        >
-          계정을 만들고 첫번째 설문을 만들어보기
-        </nuxt-link>
+    <div class="py-20 bg-indigo-900">
+      <div class="container mx-auto flex max-w-lg justify-around text-center">
+        <div class="font-mono font-bold text-white" v-for="(item, key, index) in stats" :key="index">
+          <animated-number
+            :value="item"
+            :formatValue="(value) => value.toFixed(0)"
+            :duration="300"
+            class="text-6xl"
+          />
+          <div class="text-3xl">{{ getStatisticsLabel(key) }}</div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 import { mapGetters } from 'Vuex'
+import AnimatedNumber from "animated-number-vue"
 
 export default {
   components: {
-    Logo
+    AnimatedNumber
+  },
+  data () {
+    return {
+      stats: {
+        surveys: 0,
+        users: 0,
+        participations: 0,
+      }
+    }
   },
   computed: {
     ...mapGetters(['loggedInUser'])
+  },
+  mounted () {
+    setTimeout(() => {this.getStatistics().then(({ data }) => { this.stats = data })}, 500)
+  },
+  methods: {
+    getStatistics () {
+      return this.$axios.get('/app-stats')
+    },
+    getStatisticsLabel (key) {
+      switch (key) {
+        case 'surveys':
+          return '설문조사'
+        case 'users':
+          return '사용자'
+        case 'participations':
+          return '설문참여'
+        default:
+          return ''
+      }
+    }
   }
 }
 </script>

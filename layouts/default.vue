@@ -5,6 +5,11 @@
 </template>
 
 <style lang="postcss">
+:root {
+  /* from https://design.firefox.com/photon/motion/duration-and-easing.html */
+  --transition-timing: 0.4s cubic-bezier(.07,.95,0,1);
+}
+
 html {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   font-size: 16px;
@@ -65,7 +70,14 @@ html {
 }
 
 .form--button {
-  @apply border rounded border border-gray-900 bg-gray-900 text-gray-100 py-2 px-4 cursor-pointer text-xl;
+  @apply border rounded-sm border border-gray-900 bg-gray-900 text-gray-100 py-2 px-4 cursor-pointer text-xl;
+  transition: transform var(--transition-timing), background var(--transition-timing), color var(--transition-timing), box-shadow var(--transition-timing) 0.1s;
+}
+
+.form--button:hover {
+  @apply text-gray-900 bg-gray-100 shadow-md;
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0 0 #000000;
 }
 
 .form--title {
@@ -83,7 +95,34 @@ html {
   @apply font-mono text-gray-100 px-2 py-2;
 }
 
+.nav--link:hover {
+  @apply font-bold underline;
+}
+
 .nav--link.nuxt-link-exact-active {
   @apply font-bold text-white;
+}
+
+.app--landing {
+  &.nav--link {
+    @apply font-mono text-gray-900 px-2 py-2;
+  }
+
+  &.nav--link:hover {
+    @apply font-bold underline;
+  }
+
+  &.nav--link.nuxt-link-exact-active {
+    @apply font-bold text-gray-100;
+  }
+}
+
+.block--item {
+  @apply border border-gray-600 rounded px-4 py-2 cursor-pointer mb-2;
+  transition: all var(--transition-timing);
+}
+
+.block--item:hover {
+  @apply bg-gray-600 text-gray-100;
 }
 </style>

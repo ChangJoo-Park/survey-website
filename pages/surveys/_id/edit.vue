@@ -15,7 +15,7 @@
         <div
           v-for="(type, index) in blockTypes"
           :key="index"
-          class="border border-gray-600 hover:bg-gray-600 hover:text-gray-100 rounded px-4 py-2 cursor-pointer hover:bg-gray-100 mb-2"
+          class="block--item"
           style="min-width: 200px;"
           @click="addBlockWithType(type)"
         >
