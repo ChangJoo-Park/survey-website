@@ -7,7 +7,7 @@
       <div class="mb-2">
         <input type="text" v-model="survey.description" class="text-lg w-full border rounded p-2 border-gray-700">
       </div>
-      <label for=""><input type="checkbox" v-model="survey.public">&nbsp;공개</label>
+      <label for=""><input type="checkbox" v-model="survey.published">&nbsp;공개</label>
     </div>
 
     <div class="flex items-stretch w-full">

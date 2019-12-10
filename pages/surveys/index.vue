@@ -1,77 +1,51 @@
 <template>
   <div class="container mx-auto mt-4 px-4">
     <div class="mb-8">
-      <h1 class="text-4xl text-bold border-b border-black mb-4">공개설문</h1>
-      <ul class="flex flex-wrap">
-        <nuxt-link
-          v-for="survey in publicSurveys"
+      <h1 class="text-4xl text-bold border-b border-black mb-4">출판된 설문</h1>
+      <div class="flex flex-wrap">
+        <survey-item
+          v-for="survey in published"
           :key="survey._id"
-          tag="li"
-          :to="{ name: 'surveys-id', params: { id: survey._id } }"
-          class="border border-gray-700 rounded cursor-pointer hover:bg-black hover:text-white mr-4"
-          style="min-width: 200px;"
-        >
-          <div class="px-4 py-2">
-            <div class="text-xl">{{ survey.title }}</div>
-            <div class="">{{ survey.description }}</div>
-          </div>
-          <div class="py-2 px-4">
-            <span class="text-sm" v-if="survey.questions">
-              {{ survey.questions.length }}개 질문
-            </span>
-            <span v-else>질문 없음</span>
-            &nbsp;/&nbsp;
-            <span class="text-sm">{{ survey.participantsCount }}회 참여</span>
-          </div>
-        </nuxt-link>
-      </ul>
+          :survey="survey"
+          style="min-width: 250px;"
+        />
+      </div>
     </div>
     <div>
-      <h1 class="text-4xl text-bold border-b border-black mb-4">비공개설문</h1>
-      <ul class="flex flex-wrap">
-        <nuxt-link
-          v-for="survey in privateSurveys"
+      <h1 class="text-4xl text-bold border-b border-black mb-4">수정 중인 설문</h1>
+      <div class="flex flex-wrap">
+        <survey-item
+          v-for="survey in draft"
           :key="survey._id"
-          tag="li"
-          :to="{ name: 'surveys-id', params: { id: survey._id } }"
-          class="border border-gray-700 rounded cursor-pointer hover:bg-black hover:text-white mr-4"
-          style="min-width: 200px;"
-        >
-          <div class="px-4 py-2">
-            <div class="text-xl">{{ survey.title }}</div>
-            <div class="">{{ survey.description }}</div>
-          </div>
-          <div class="py-2 px-4">
-            <span class="text-sm" v-if="survey.questions">
-              {{ survey.questions.length }}개 질문
-            </span>
-            <span v-else>질문 없음</span>
-            &nbsp;/&nbsp;
-            <span class="text-sm">{{ survey.participantsCount }}회 참여</span>
-          </div>
-        </nuxt-link>
-      </ul>
+          :survey="survey"
+          style="min-width: 250px;"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'Vuex'
+import SurveyItem from '~/components/survey-item'
 
 export default {
+  components: {
+    SurveyItem
+  },
   async asyncData ({app, query, req}) {
     const response = await Promise.all([app.$axios({
       url: '/me',
     }), app.$axios({
-      url: '/surveys/public'
+      url: '/surveys/published'
     }), app.$axios({
-      url: '/surveys/private',
+      url: '/surveys/draft',
     })])
 
     const user = response[0].data
-    const publicSurveys = response[1].data
-    const privateSurveys = response[2].data
-    return { user, publicSurveys, privateSurveys }
+    const published = response[1].data
+    const draft = response[2].data
+    return { user, published, draft }
   },
   computed: {
     ...mapGetters(['loggedInUser']),

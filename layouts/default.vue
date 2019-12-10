@@ -100,7 +100,7 @@ html {
 }
 
 .nav--link.nuxt-link-exact-active {
-  @apply font-bold text-white;
+  @apply font-bold text-white underline;
 }
 
 .app--landing {
@@ -124,5 +124,17 @@ html {
 
 .block--item:hover {
   @apply bg-gray-600 text-gray-100;
+}
+
+.card--item {
+  @apply border border-gray-700 rounded mr-4 mb-4;
+}
+
+.card--link {
+  @apply text-sm;
+}
+
+.card--link:hover {
+  @apply underline;
 }
 </style>

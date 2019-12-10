@@ -23,7 +23,7 @@ export default {
       survey: {
         title: '',
         description: '',
-        public: false
+        published: false
       }
     }
   },
