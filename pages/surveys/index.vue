@@ -8,35 +8,45 @@
           :key="survey._id"
           tag="li"
           :to="{ name: 'surveys-id', params: { id: survey._id } }"
-          class="border border-gray-700 rounded cursor-pointer hover:bg-black hover:text-white"
+          class="border border-gray-700 rounded cursor-pointer hover:bg-black hover:text-white mr-4"
+          style="min-width: 200px;"
         >
           <div class="px-4 py-2">
             <div class="text-xl">{{ survey.title }}</div>
             <div class="">{{ survey.description }}</div>
           </div>
           <div class="py-2 px-4">
-            <span class="text-sm">{{ survey.questions.length }}개 질문</span>&nbsp;/&nbsp;
+            <span class="text-sm" v-if="survey.questions">
+              {{ survey.questions.length }}개 질문
+            </span>
+            <span v-else>질문 없음</span>
+            &nbsp;/&nbsp;
             <span class="text-sm">{{ survey.participantsCount }}회 참여</span>
           </div>
         </nuxt-link>
       </ul>
     </div>
     <div>
-      <h1 class="text-4xl text-bold border-b border-black mb-2">비공개설문</h1>
+      <h1 class="text-4xl text-bold border-b border-black mb-4">비공개설문</h1>
       <ul class="flex flex-wrap">
         <nuxt-link
           v-for="survey in privateSurveys"
           :key="survey._id"
           tag="li"
           :to="{ name: 'surveys-id', params: { id: survey._id } }"
-          class="border border-gray-700 rounded cursor-pointer hover:bg-black hover:text-white"
+          class="border border-gray-700 rounded cursor-pointer hover:bg-black hover:text-white mr-4"
+          style="min-width: 200px;"
         >
           <div class="px-4 py-2">
             <div class="text-xl">{{ survey.title }}</div>
             <div class="">{{ survey.description }}</div>
           </div>
           <div class="py-2 px-4">
-            <span class="text-sm">{{ survey.questions.length }}개 질문</span>&nbsp;/&nbsp;
+            <span class="text-sm" v-if="survey.questions">
+              {{ survey.questions.length }}개 질문
+            </span>
+            <span v-else>질문 없음</span>
+            &nbsp;/&nbsp;
             <span class="text-sm">{{ survey.participantsCount }}회 참여</span>
           </div>
         </nuxt-link>
