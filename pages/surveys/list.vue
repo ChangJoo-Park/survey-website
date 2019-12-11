@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto mt-4 px-4">
     <div class="mb-8 px-2">
-      <h1 class="text-4xl text-bold border-b border-black mb-4">진행중인 설문</h1>
+      <h1 class="text-2xl text-bold border-b border-black mb-4">진행중인 설문</h1>
       <div class="flex flex-wrap -mx-2 overflow-hidden">
         <div
           v-for="survey in published"
@@ -13,7 +13,7 @@
       </div>
     </div>
     <div class="mb-8">
-      <h1 class="text-4xl text-bold border-b border-black mb-4">수정중인 설문</h1>
+      <h1 class="text-2xl text-bold border-b border-black mb-4">수정중인 설문</h1>
       <div class="flex flex-wrap -mx-2 overflow-hidden">
         <div
           v-for="survey in draft"
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="mb-8">
-      <h1 class="text-4xl text-bold border-b border-black mb-4">종료된 설문</h1>
+      <h1 class="text-2xl text-bold border-b border-black mb-4">종료된 설문</h1>
     </div>
   </div>
 </template>

@@ -5,7 +5,13 @@
         :to="{ name: 'surveys-id', params: { id: $route.params.id }}"
         class="py-1 px-2 underline"
       >
-        설문 통계</nuxt-link>
+        통계
+      </nuxt-link>
+      <nuxt-link
+        :to="{ name: 'surveys-id-participations', params: { id: $route.params.id }}"
+        class="py-1 px-2 underline"
+      >
+        참여목록</nuxt-link>
       &nbsp;
       <nuxt-link
         :to="{ name: 'surveys-id-edit', params: { id: $route.params.id }}"
