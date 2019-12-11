@@ -40,6 +40,10 @@ export default {
       }
     })
   },
+  beforeDestroy () {
+    this.socket.close()
+    this.socket = null
+  },
   methods: {
     ...mapActions(['setUser', 'setAccessToken', 'setSurveyParticipations']),
     signout () {
