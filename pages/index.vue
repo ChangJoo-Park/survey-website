@@ -4,7 +4,7 @@
       <div class="container mx-auto">
         <div class="flex items-center px-2" style="height: 3rem;">
           <div class="font-mono flex-1">
-            <a href="/">MoleculerSurvey</a>
+            <a href="/">Survey</a>
           </div>
           <div class="" v-if="loggedInUser">
             <nuxt-link
@@ -35,7 +35,7 @@
     <div class="jumbotron py-40 border-b border-b-8 border-indigo-900">
       <div class="container mx-auto">
         <div>
-          <h1 class="text-6xl text-center font-mono font-bold">Moleculer Survey</h1>
+          <h1 class="text-6xl text-center font-mono font-bold">Survey</h1>
         </div>
         <div class="mb-8">
           <p class="text-xl text-center font-mono">설문을 만들고, 참여하세요</p>

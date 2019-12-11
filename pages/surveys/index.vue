@@ -1,74 +1,59 @@
 <template>
-  <div class="container mx-auto mt-4 px-4">
-    <div class="mb-8">
-      <h1 class="text-4xl text-bold border-b border-black mb-4">시작한 설문</h1>
-      <div class="flex flex-wrap">
-        <survey-item
-          v-for="survey in published"
-          :key="survey._id"
-          :survey="survey"
-          style="min-width: 250px;"
-        />
-      </div>
-    </div>
-    <div class="mb-8">
-      <h1 class="text-4xl text-bold border-b border-black mb-4">수정 중인 설문</h1>
-      <div class="flex flex-wrap">
-        <survey-item
-          v-for="survey in draft"
-          :key="survey._id"
-          :survey="survey"
-          style="min-width: 250px;"
-        />
-      </div>
-    </div>
-    <div class="mb-8">
-      <h1 class="text-4xl text-bold border-b border-black mb-4">종료된 설문</h1>
-    </div>
+  <div class="container mx-auto mt-8">
+    <widget-row style="min-height: 120px;">
+      <status-widget
+        title="TRAFFIC"
+        :count="350897"
+        :percent="0.0348"
+        percent-status="up"
+        :date="new Date()"
+        icon="chart"
+      />
+      <status-widget
+        title="NEW USERS"
+        :count="2356"
+        :percent="0.0348"
+        percent-status="down"
+        :date="new Date()"
+        icon="pie-chart"
+      />
+      <status-widget
+        title="SALES"
+        :count="924"
+        :percent="0.010"
+        percent-status="down"
+        :date="new Date()"
+        icon="chart"
+      />
+      <status-widget
+        title="PERFORMANCE"
+        :count="0.4965"
+        count-type="percent"
+        :percent="0.12"
+        percent-status="up"
+        :date="new Date()"
+        icon="chart"
+      />
+    </widget-row>
+    <widget-row style="min-height: 300px;">
+    </widget-row>
+    <widget-row style="min-height: 300px;">
+    </widget-row>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'Vuex'
-import SurveyItem from '~/components/survey-item'
 import { getUnixTime, parseISO } from 'date-fns'
 
+import StatusWidget from '~/components/status-widget.vue'
+import WidgetRow from '~/components/widget-row.vue'
 export default {
   components: {
-    SurveyItem
-  },
-  async asyncData ({app, query, req, store}) {
-    // TODO: Change to one call for surveys
-    const response = await Promise.all([app.$axios({
-      url: '/me',
-    }), app.$axios({
-      url: '/surveys/published'
-    }), app.$axios({
-      url: '/surveys/draft',
-    })])
-
-    const user = response[0].data
-    const published = response[1].data
-    const draft = response[2].data
-
-    app.store.dispatch('setSurveys', [...published, ...draft])
-
-    return { user }
-  },
-  computed: {
-    ...mapGetters(['loggedInUser', 'published', 'draft']),
-    loggedIn () {
-      return !!this.user
-    }
+    StatusWidget,
+    WidgetRow
   },
   methods: {
-    ...mapActions(['setSurveys']),
-    async remove(id) {
-      const response = await this.$axios({ url: `/surveys/${id}`, method: 'DELETE' })
-    },
-    sortByCreatedAt(a,b) {
-      return getUnixTime(parseISO(b.createdAt)) - getUnixTime(parseISO(a.createdAt))
-    }
   }
 }
 </script>
