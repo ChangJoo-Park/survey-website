@@ -29,7 +29,7 @@
     <div class="px-4">
       <span class="font-mono text-xs">{{ createdAt }}</span>
     </div>
-    <hr class="border-gray-900">
+    <hr class="border-gray-300">
     <div class="px-4 py-2 flex items-stretch">
       <nuxt-link :to="{ name: 'surveys-id', params: { id: survey._id } }" class="card--link flex-1 text-left">자세히 보기</nuxt-link>
       &nbsp;

@@ -8,7 +8,7 @@
       <table class="w-full mb-4">
         <thead>
           <tr>
-            <th>_id</th>
+            <th class="w-16">_id</th>
             <th v-for="q in questions" :key="q._id">
               {{ q.question }}
             </th>
@@ -18,7 +18,7 @@
         <!-- Body -->
         <tbody>
           <tr v-for="item in participants.rows" :key="item._id" class="border-b border-black hover:bg-gray-900 hover:text-gray-100">
-            <td class="py-2 pl-2">{{ item._id }}</td>
+            <td class="w-16 py-2 pl-2">{{ item._id }}</td>
             <td v-for="(answer, index) in item.answers" :key="index" class="py-2">
               {{ answer.value }}
             </td>

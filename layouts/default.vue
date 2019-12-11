@@ -130,12 +130,12 @@ html {
 }
 
 .card--item {
-  @apply border border-gray-700 mb-2;
+  @apply border border-gray-300 shadow-md mb-2;
   transition: all var(--transition-timing);
 }
 
 .card--item:hover {
-  @apply shadow-xl bg-indigo-600 text-gray-100 border-indigo-700;
+  @apply shadow-md bg-indigo-600 text-gray-100 border-indigo-600;
 }
 
 .card--link {

@@ -2,11 +2,11 @@
   <div class="container mx-auto mt-4 px-4">
     <div class="mb-8 px-2">
       <h1 class="text-4xl text-bold border-b border-black mb-4">진행중인 설문</h1>
-      <div class="flex flex-wrap -mx-2">
+      <div class="flex flex-wrap -mx-2 overflow-hidden">
         <div
           v-for="survey in published"
           :key="survey._id"
-          class="w-full md:w-1/2 lg:w-1/3 px-2"
+          class="w-full md:w-1/2 lg:w-1/3 px-2 overflow-hidden"
         >
           <survey-item :survey="survey" />
         </div>
@@ -14,11 +14,11 @@
     </div>
     <div class="mb-8">
       <h1 class="text-4xl text-bold border-b border-black mb-4">수정중인 설문</h1>
-      <div class="flex flex-wrap -mx-2">
+      <div class="flex flex-wrap -mx-2 overflow-hidden">
         <div
           v-for="survey in draft"
           :key="survey._id"
-          class="w-full md:w-1/2 lg:w-1/3 px-2"
+          class="w-full md:w-1/2 lg:w-1/3 px-2 overflow-hidden"
         >
           <survey-item :survey="survey" />
         </div>
