@@ -37,7 +37,7 @@
             @change="updated"
           >
             <transition-group>
-              <div v-for="(element, index) in questions" :key="index" class="p-2 border mb-2">
+              <div v-for="(element, index) in questions" :key="element._id" class="p-2 border mb-2">
                   <div class="mb-2">
                     <div class="mb-2">
                       <span class="drag-handle cursor-pointer">:::</span>
