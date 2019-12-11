@@ -2,7 +2,8 @@ import axios from 'axios'
 
 export const state = () => ({
   accessToken: null,
-  user: null
+  user: null,
+  surveys: []
 })
 
 export const mutations = {
@@ -11,6 +12,13 @@ export const mutations = {
   },
   SET_USER (state, newUser) {
     state.user = newUser
+  },
+  SET_SURVEYS (state, newSurveys) {
+    state.surveys = newSurveys
+  },
+  SET_SURVEY_PARTICIPATIONS (state, payload) {
+    const index = state.surveys.findIndex(s => s._id === payload.survey)
+    state.surveys[index].participantsCount = payload.participantsCount
   }
 }
 
@@ -38,9 +46,17 @@ export const actions = {
   },
   setUser ({ commit }, user)  {
     commit('SET_USER', user)
+  },
+  setSurveys ({ commit }, surveys) {
+    commit('SET_SURVEYS', surveys)
+  },
+  setSurveyParticipations({ commit }, payload) {
+    commit('SET_SURVEY_PARTICIPATIONS', payload)
   }
 }
 
 export const getters = {
-  loggedInUser: (state) => state.user
+  loggedInUser: (state) => state.user,
+  published: (state) => state.surveys.filter(s => s.published),
+  draft: (state) => state.surveys.filter(s => !s.published)
 }

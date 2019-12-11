@@ -63,10 +63,7 @@ export default {
       }
     })
 
-    this.socket = this.$nuxtSocket({ reconnection: false })
-    this.socket.on('test', (payload) => {
-      console.log('test => ', payload)
-    })
+    this.socket = this.$nuxtSocket({ reconnection: true })
 
     this.socket.on(`someone-take-a-survey/${this.survey._id}`, ({ sender, event, payload }) => {
       this.$axios({ url: `/surveys/${this.survey._id}/participate` })

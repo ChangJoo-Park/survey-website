@@ -22,11 +22,25 @@
 import { mapActions, mapGetters } from 'Vuex';
 
 export default {
+  data () {
+    return {
+      socket: null
+    }
+  },
   computed: {
     ...mapGetters(['loggedInUser']),
   },
+  mounted () {
+    this.socket = this.$nuxtSocket({ reconnection: true })
+
+    this.socket.on(`author/${this.loggedInUser._id}`, ({ sender, event, payload }) => {
+      if (payload.event === 'PARTICIPATION_CREATED') {
+        this.setSurveyParticipations(payload)
+      }
+    })
+  },
   methods: {
-    ...mapActions(['setUser', 'setAccessToken']),
+    ...mapActions(['setUser', 'setAccessToken', 'setSurveyParticipations']),
     signout () {
       this.setAccessToken(null)
       this.setUser(null)
