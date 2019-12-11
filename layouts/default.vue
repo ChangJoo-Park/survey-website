@@ -66,7 +66,10 @@ html {
 }
 
 .form--input {
-  @apply w-full border rounded p-2 border-gray-700 text-xl;
+  @apply w-full border rounded border-gray-500 p-2 text-xl outline-none;
+}
+.form--input:focus, .form--input:hover {
+  @apply border-gray-900;
 }
 
 .form--button {
