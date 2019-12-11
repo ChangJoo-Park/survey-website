@@ -130,7 +130,7 @@ html {
 }
 
 .card--item {
-  @apply border border-gray-700 mr-4 mb-4;
+  @apply border border-gray-700 mb-2;
   transition: all var(--transition-timing);
 }
 
