@@ -6,7 +6,12 @@
     </div>
     <div class="px-4 text-sm">
       <span v-if="survey.questions">
-        질문 {{ survey.questions.length }}개
+        질문 <animated-number
+          :value="survey.questions.length"
+          :formatValue="(value) => value.toFixed(0)"
+          :duration="300"
+          class="text-lg"
+        />개
       </span>
       <span v-else>질문 없음</span>
       /
@@ -16,7 +21,7 @@
           :value="survey.participantsCount"
           :formatValue="(value) => value.toFixed(0)"
           :duration="300"
-          class="text-6xl"
+          class="text-lg"
         />회
       </span>
       <span v-else>참여 없음</span>
@@ -41,6 +46,9 @@ import { ko } from 'date-fns/locale'
 import AnimatedNumber from "animated-number-vue"
 
 export default {
+  components: {
+    AnimatedNumber
+  },
   props: {
     survey: {
       type: Object
