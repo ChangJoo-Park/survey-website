@@ -23,7 +23,7 @@ import { mapActions, mapGetters } from 'Vuex';
 
 export default {
   computed: {
-    ...mapGetters(['loggedInUser'])
+    ...mapGetters(['loggedInUser']),
   },
   methods: {
     ...mapActions(['setUser', 'setAccessToken']),

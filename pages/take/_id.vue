@@ -65,6 +65,12 @@ export default {
       url: `/surveys/${params.id}`,
     })
     let answers = {}
+
+    if (!Array.isArray(data.questions)) {
+      console.log('Not Array')
+      data.questions = []
+    }
+
     data.questions
       .forEach(q => {
         let value

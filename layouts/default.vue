@@ -127,7 +127,12 @@ html {
 }
 
 .card--item {
-  @apply border border-gray-700 rounded mr-4 mb-4;
+  @apply border border-gray-700 mr-4 mb-4;
+  transition: all var(--transition-timing);
+}
+
+.card--item:hover {
+  @apply shadow-xl bg-indigo-600 text-gray-100 border-indigo-700;
 }
 
 .card--link {
