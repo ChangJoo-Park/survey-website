@@ -10,7 +10,15 @@
       </span>
       <span v-else>질문 없음</span>
       /
-      <span v-if="survey.participantsCount">참여 {{ survey.participantsCount }}회</span>
+      <span v-if="survey.participantsCount">
+        참여
+        <animated-number
+          :value="survey.participantsCount"
+          :formatValue="(value) => value.toFixed(0)"
+          :duration="300"
+          class="text-6xl"
+        />회
+      </span>
       <span v-else>참여 없음</span>
     </div>
     <div class="px-4">
@@ -30,6 +38,7 @@
 <script>
 import { format, parseISO, getUnixTime } from 'date-fns'
 import { ko } from 'date-fns/locale'
+import AnimatedNumber from "animated-number-vue"
 
 export default {
   props: {
