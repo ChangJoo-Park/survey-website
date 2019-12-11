@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto max-w-3xl">
+  <div class="container mx-auto">
     <div class="mb-6">
       <div class="mb-2">
         <input type="text" v-model="survey.title" class="form--input text-2xl">

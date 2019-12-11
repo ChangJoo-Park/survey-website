@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-3xl mx-auto">
+  <div class="">
     <header class="mb-4">
       <h1 class="text-2xl font-bold">{{ survey.title }}</h1>
       <p class="mb-2">{{ survey.description }}</p>
