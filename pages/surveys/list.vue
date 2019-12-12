@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'Vuex'
+import { mapGetters, mapActions } from 'vuex'
 import SurveyItem from '~/components/survey-item'
 import { getUnixTime, parseISO } from 'date-fns'
 

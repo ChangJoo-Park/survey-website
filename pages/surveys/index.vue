@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'Vuex'
+import { mapGetters, mapActions } from 'vuex'
 import { getUnixTime, parseISO } from 'date-fns'
 
 import StatusWidget from '~/components/status-widget.vue'
