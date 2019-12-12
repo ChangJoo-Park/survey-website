@@ -146,7 +146,7 @@ html {
 }
 
 .card--item {
-  @apply rounded border border-gray-300 shadow-md mb-2;
+  @apply rounded border border-gray-300 shadow-md mb-2 cursor-pointer;
   transition: all var(--transition-timing);
 }
 
