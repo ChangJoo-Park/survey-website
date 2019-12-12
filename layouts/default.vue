@@ -111,6 +111,17 @@ html {
   @apply font-bold text-white underline;
 }
 
+.subnav--link {
+  @apply py-1 px-2;
+}
+
+.subnav--link:hover {
+  @apply underline;
+}
+.subnav--link.nuxt-link-exact-active {
+  @apply font-bold underline;
+}
+
 .app--landing {
   &.nav--link {
     @apply font-mono text-gray-900 px-2 py-2;
