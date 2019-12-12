@@ -17,7 +17,7 @@
             >
           </form>
         </div>
-        <div class="flex items-center">
+        <div class="flex items-center" v-if="loggedInUser">
           <account-dropdown :avatar="''" :username="loggedInUser.username" :dropdown-options="dropdownOptions" />
         </div>
       </div>
@@ -72,9 +72,7 @@ export default {
         {
           label: '로그아웃',
           type: 'action',
-          do() {
-            console.log(vueInstance)
-          }
+          do: this.signout
         },
       ]
     }
@@ -98,10 +96,10 @@ export default {
   methods: {
     ...mapActions(['setUser', 'setAccessToken', 'setSurveyParticipations']),
     signout () {
+      this.$router.push({ name: 'index' })
       this.setAccessToken(null)
       this.setUser(null)
       this.$cookies.remove('access_token')
-      this.$router.push({ name: 'index' })
     },
     search () {
       this.$router.push({

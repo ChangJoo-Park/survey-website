@@ -42,7 +42,8 @@ export default {
     },
     username: {
       type: String,
-      required: true
+      required: true,
+      default: () => ''
     },
     dropdownOptions: {
       type: Array
