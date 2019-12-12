@@ -68,7 +68,6 @@ export default {
     let answers = {}
 
     if (!Array.isArray(data.questions)) {
-      console.log('Not Array')
       data.questions = []
     }
 
