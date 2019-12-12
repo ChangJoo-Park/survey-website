@@ -10,7 +10,7 @@
         </div>
         <div class="flex items-center">
           <form class="" @submit.prevent="search">
-            <input type="search" class="search--input" placeholder="설문을 찾아보세요">
+            <input type="search" class="search--input" placeholder="설문을 찾아보세요" v-model="searchTerm">
           </form>
           <nuxt-link :to="{ name: 'surveys-me' }" class="nav--link">{{ loggedInUser.username }}</nuxt-link>&nbsp;
           <button @click="signout" class="nav--link">로그아웃</button>
@@ -26,9 +26,16 @@
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
+  async asyncData ({ app, query, req, params, route }) {
+    if (route.name === 'surveys-search' && query.term) {
+      return { searchTerm: query.term }
+    }
+    return { searchTerm: '' }
+  },
   data () {
     return {
-      socket: null
+      socket: null,
+      searchTerm: ''
     }
   },
   computed: {
@@ -54,6 +61,12 @@ export default {
       this.setUser(null)
       this.$cookies.remove('access_token')
       this.$router.push({ name: 'index' })
+    },
+    search () {
+      this.$router.push({
+        name: 'surveys-search',
+        query: { term: this.searchTerm }
+      })
     }
   }
 }
