@@ -24,9 +24,9 @@
         </div>
       </div>
     </div>
-    <div class="mb-8">
+    <!-- <div class="mb-8">
       <h1 class="text-2xl text-bold border-b border-black mb-4">종료된 설문</h1>
-    </div>
+    </div> -->
   </div>
 </template>
 
