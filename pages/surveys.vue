@@ -8,7 +8,10 @@
           <nuxt-link :to="{ name: 'surveys-list' }" class="nav--link">설문현황</nuxt-link>&nbsp;
           <nuxt-link :to="{ name: 'surveys-create' }" class="nav--link">설문만들기</nuxt-link>&nbsp;
         </div>
-        <div>
+        <div class="flex items-center">
+          <form class="" @submit.prevent="search">
+            <input type="search" class="search--input" placeholder="설문을 찾아보세요">
+          </form>
           <nuxt-link :to="{ name: 'surveys-me' }" class="nav--link">{{ loggedInUser.username }}</nuxt-link>&nbsp;
           <button @click="signout" class="nav--link">로그아웃</button>
         </div>
@@ -20,7 +23,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'Vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   data () {

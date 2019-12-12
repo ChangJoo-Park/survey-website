@@ -65,10 +65,15 @@ html {
   @apply mb-4;
 }
 
+.search--input {
+  @apply w-full border rounded border-gray-500 px-2 py-1 outline-none;
+}
+
 .form--input {
   @apply w-full border rounded border-gray-500 p-2 text-xl outline-none;
 }
-.form--input:focus, .form--input:hover {
+
+.form--input:focus, .form--input:hover, .search--input:hover, .search--input:focus {
   @apply border-gray-900;
 }
 
