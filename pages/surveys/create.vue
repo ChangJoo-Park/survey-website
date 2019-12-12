@@ -3,11 +3,11 @@
     <form @submit.prevent="submit" class="w-full max-w-xl mb-20">
       <div class="mb-4">
         <div class="text-2xl mb-1"><label for="">새 설문 이름</label></div>
-        <input type="text" v-model="survey.title" class="form--input text-xl" required autofocus>
+        <input type="text" v-model="survey.title" class="form-input text-xl" required autofocus>
       </div>
       <div class="mb-4">
         <div class="text-2xl mb-1"><label for="">짧은 소개</label></div>
-        <input type="text" v-model="survey.description" class="form--input text-xl">
+        <input type="text" v-model="survey.description" class="form-input text-xl">
       </div>
       <div class="text-right">
         <input type="submit" value="만들기" class="border rounded border border-gray-900 bg-gray-900 text-gray-100 py-2 px-4 hover:shadow cursor-pointer text-xl">

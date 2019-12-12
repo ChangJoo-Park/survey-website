@@ -18,9 +18,7 @@
           </form>
         </div>
         <div class="flex items-center">
-          <!-- <nuxt-link :to="{ name: 'surveys-me' }" class="nav--link">{{ loggedInUser.username }}</nuxt-link>&nbsp; -->
-          <account-dropdown />
-          <!-- <button @click="signout" class="nav--link">로그아웃</button> -->
+          <account-dropdown :avatar="''" :username="loggedInUser.username" :dropdown-options="dropdownOptions" />
         </div>
       </div>
     </div>
@@ -44,9 +42,41 @@ export default {
     return { searchTerm: '' }
   },
   data () {
+    const vueInstance = this
     return {
       socket: null,
-      searchTerm: ''
+      searchTerm: '',
+      dropdownOptions: [
+        {
+          label: '계정',
+          type: 'route',
+          to: {
+            name: 'surveys-me'
+          }
+        },
+        {
+          label: '설정',
+          type: 'route',
+          to: {
+            name: 'surveys-setting'
+          }
+        },
+        { type: 'divider' },
+        {
+          label: '지원',
+          type: 'action',
+          do() {
+            console.log(vueInstance)
+          }
+        },
+        {
+          label: '로그아웃',
+          type: 'action',
+          do() {
+            console.log(vueInstance)
+          }
+        },
+      ]
     }
   },
   computed: {

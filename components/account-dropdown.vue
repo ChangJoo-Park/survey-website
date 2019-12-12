@@ -1,27 +1,53 @@
 <template>
   <div class="relative">
     <button @click="isOpen = !isOpen" class="relative px-2 z-10 block focus:outline-none flex flex-row  items-center focus:border-white">
-      <div class="h-8 w-8 rounded-full overflow-hidden border-2 border-gray-600 inline-block mr-1">
-        <img
-          class="h-full w-full object-cover "
-          src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=256&q=80"
-          alt="Your avatar"
-        >
-      </div>
-      <span class="text-white">changjoopark</span>
+      <avatar :username="username" :size="35" />&nbsp;
+      <span class="text-white">{{ username }}</span>
     </button>
-
-    <button v-if="isOpen" @click="isOpen = false" tabindex="-1" class="fixed inset-0 h-full w-full bg-black opacity-25 cursor-default"></button>
+    <button v-if="isOpen" @click="isOpen = false" tabindex="-1" class="fixed inset-0 h-full w-full bg-black cursor-default opacity-25"></button>
     <div v-if="isOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-lg shadow-xl">
-      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Account settings</a>
-      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Support</a>
-      <a href="#" class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white">Sign out</a>
+      <ul>
+        <li v-for="(option, index) in dropdownOptions" :key="index">
+          <a
+            href="#"
+            @click.prevent="goTo(option.to)"
+            class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+            v-if="option.type === 'route'"
+          >{{ option.label }}</a>
+          <a
+            href="#"
+            @click.prevent="doAction(option.do)"
+            class="block px-4 py-2 text-gray-800 hover:bg-indigo-500 hover:text-white"
+            v-if="option.type === 'action'"
+          >{{ option.label }}</a>
+          <hr v-if="option.type === 'divider'">
+        </li>
+      </ul>
     </div>
   </div>
 </template>
 
 <script>
+import Avatar from 'vue-avatar'
+
 export default {
+  components: {
+    Avatar
+  },
+  props: {
+    avatar: {
+      type: String,
+      required: true,
+      default: () => ''
+    },
+    username: {
+      type: String,
+      required: true
+    },
+    dropdownOptions: {
+      type: Array
+    }
+  },
   data() {
     return {
       isOpen: false
@@ -37,6 +63,18 @@ export default {
     this.$once('hook:beforeDestroy', () => {
       document.removeEventListener('keydown', handleEscape)
     })
+  },
+  methods: {
+    goTo(to) {
+      this.isOpen = false
+      this.$router.push(to)
+    },
+    doAction (action) {
+      this.isOpen = false
+      if (action) {
+        action()
+      }
+    }
   }
 }
 </script>

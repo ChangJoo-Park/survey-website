@@ -40,6 +40,7 @@
             <label>
               <input
                 type="checkbox"
+                class="form-checkbox"
                 :name="block.question" :value="option.label"
                 v-model="answers[block._id].value"
               >

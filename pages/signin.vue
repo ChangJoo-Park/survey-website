@@ -6,13 +6,13 @@
         <div>
           <label for="email" class="form--label">이메일</label>
         </div>
-        <input id="email" type="email" v-model="user.email" class="form--input" autofocus required>
+        <input id="email" type="email" v-model="user.email" class="form-input" autofocus required>
       </div>
       <div class="form--group">
         <div>
           <label for="password" class="form--label" required>비밀번호</label>
         </div>
-        <input id="password" type="password" v-model="user.password" class="form--input" required>
+        <input id="password" type="password" v-model="user.password" class="form-input" required>
       </div>
       <div class="form--group">
         <input type="submit" class="form--button w-full" value="로그인하기">

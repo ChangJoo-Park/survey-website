@@ -2,12 +2,12 @@
   <div class="container mx-auto">
     <div class="mb-6">
       <div class="mb-2">
-        <input type="text" v-model="survey.title" class="form--input text-2xl">
+        <input type="text" v-model="survey.title" class="form-input text-2xl">
       </div>
       <div class="mb-2">
-        <input type="text" v-model="survey.description" class="text-lg form--input">
+        <input type="text" v-model="survey.description" class="text-lg form-input">
       </div>
-      <label for=""><input type="checkbox" v-model="survey.published">&nbsp;공개</label>
+      <label for=""><input type="checkbox" class="form-checkbox" v-model="survey.published">&nbsp;공개</label>
     </div>
 
     <div class="flex items-stretch w-full">
@@ -43,14 +43,14 @@
                       <span class="drag-handle cursor-pointer">:::</span>
                       <label class="text-xl">{{ element.label }} 질문</label>
                     </div>
-                    <input type="text" v-model="element.question" class="form--input" placeholder="질문을 입력하세요" required>
+                    <input type="text" v-model="element.question" class="form-input" placeholder="질문을 입력하세요" required>
                   </div>
                   <!-- Checkbox -->
                   <template v-if="element.type === 'checkbox'">
                     <div v-for="(option, index) in element.options" :key="index" class="flex justify-between">
                       <label for="" class="flex-1 flex py-2 items-center mr-2">
-                        <input type="checkbox" disabled>&nbsp;
-                        <input type="text" v-model="option.label" class="flex-1 form--input">
+                        <input type="checkbox" class="form-checkbox" disabled>&nbsp;
+                        <input type="text" v-model="option.label" class="flex-1 form-input">
                       </label>
                       <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
                     </div>
@@ -60,7 +60,7 @@
                     <div v-for="(option, index) in element.options" :key="index" class="flex justify-between">
                       <label for="" class="flex-1 flex py-2 items-center mr-2">
                         <input type="radio" disabled>&nbsp;
-                        <input type="text" v-model="option.label" class="flex-1 form--input" required>
+                        <input type="text" v-model="option.label" class="flex-1 form-input" required>
                       </label>
                       <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
                     </div>

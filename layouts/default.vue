@@ -69,16 +69,16 @@ html {
   @apply w-full border rounded border-gray-500 px-2 py-1 outline-none;
 }
 
-.form--input {
-  @apply w-full border rounded border-gray-500 p-2 text-xl outline-none;
+/* .form-input {
+  @apply w-full border rounded border-gray-500 p-2 outline-none;
 }
 
-.form--input:focus, .form--input:hover, .search--input:hover, .search--input:focus {
+.form-input:focus, .form-input:hover, .search--input:hover, .search--input:focus {
   @apply border-gray-900;
-}
+} */
 
 .form--button {
-  @apply border rounded-sm border border-gray-900 bg-gray-900 text-gray-100 py-2 px-4 cursor-pointer text-xl;
+  @apply border rounded-sm border border-gray-900 bg-gray-900 text-gray-100 py-2 px-4 cursor-pointer;
   transition: transform var(--transition-timing), background var(--transition-timing), color var(--transition-timing), box-shadow var(--transition-timing) 0.1s;
 }
 
