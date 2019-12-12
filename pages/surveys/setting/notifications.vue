@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto max-w-xl">
     <div class="setting--title text-xl font-bold mb-4">
-      공유 서비스 설정
+      알림 설정
     </div>
     <div class="setting--section border-b border-b-2 my-8">
       <div class="setting--section--title text-lg font-bold mb-2">
