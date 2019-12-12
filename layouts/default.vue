@@ -112,7 +112,7 @@ html {
 }
 
 .subnav--link {
-  @apply py-1 px-2;
+  @apply py-1 px-2 cursor-pointer;
 }
 
 .subnav--link:hover {
