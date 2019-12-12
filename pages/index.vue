@@ -42,12 +42,9 @@
         </div>
         <div class="flex justify-center items-center">
           <div v-if="loggedInUser">
-            <div class="mb-2">{{ loggedInUser.username}}님 안녕하세요</div>
-            <div>
-              <nuxt-link class="form--button" :to="{ name: 'surveys' }">
-                새로운 설문을 만들어보세요
-              </nuxt-link>
-            </div>
+            <nuxt-link class="form--button" :to="{ name: 'surveys' }">
+              새로운 설문을 만들어보세요
+            </nuxt-link>
           </div>
           <nuxt-link class="form--button" v-else :to="{ name: 'signup' }">
             시작하기
