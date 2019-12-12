@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto mt-8 flex">
-    <aside class="mr-4" style="min-width: 200px;">
+    <aside class="p-4 mr-4" style="min-width: 200px;">
       <nav class="">
         <ul>
           <nuxt-link
