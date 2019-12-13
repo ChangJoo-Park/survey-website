@@ -21,6 +21,7 @@
             :value="survey.questions.length"
             :formatValue="(value) => value.toFixed(0)"
             :duration="300"
+            :delay="200"
           />
         </div>
         <div class="text-3xl" v-else>0</div>
@@ -32,6 +33,7 @@
             :value="survey.participantsCount"
             :formatValue="(value) => value.toFixed(0)"
             :duration="300"
+            :delay="200"
           />
         </div>
         <div class="text-3xl" v-else>0</div>

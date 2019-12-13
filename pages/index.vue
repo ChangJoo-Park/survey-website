@@ -59,6 +59,7 @@
             :value="item"
             :formatValue="(value) => value.toFixed(0)"
             :duration="300"
+            :delay="200"
             class="text-6xl"
           />
           <div class="text-3xl">{{ getStatisticsLabel(key) }}</div>

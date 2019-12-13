@@ -10,6 +10,7 @@
           :value="survey.questions.length"
           :formatValue="(value) => value.toFixed(0)"
           :duration="300"
+          :delay="200"
           class="text-lg"
         />개
       </span>
@@ -21,6 +22,7 @@
           :value="survey.participantsCount"
           :formatValue="(value) => value.toFixed(0)"
           :duration="300"
+          :delay="200"
           class="text-lg"
         />회
       </span>
