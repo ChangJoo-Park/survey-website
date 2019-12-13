@@ -1,98 +1,14 @@
 <template>
   <div class="container mx-auto">
-    <div class="mb-6">
-      <div class="mb-2">
-        <input type="text" v-model="survey.title" class="form-input w-full text-2xl">
-      </div>
-      <div class="mb-2">
-        <input type="text" v-model="survey.description" class="text-lg form-input w-full">
-      </div>
-      <div class="mb-2">
-        <label class="text-gray-700"><input type="checkbox" class="form-checkbox" v-model="survey.published">&nbsp;공개</label> &nbsp;
-        <label class="text-gray-700"><input type="checkbox" class="form-checkbox" v-model="useDateLimit">&nbsp;시작/종료일 지정</label>
-      </div>
-      <div class="mb-2" v-if="useDateLimit">
-        <label class="text-gray-700">시작일시 <input type="datetime-local" class="form-input"></label>&nbsp;
-        <label class="text-gray-700">종료일시 <input type="datetime-local" class="form-input"></label>
-      </div>
+    <div class="mb-4">
+      <nav>
+        <ul>
+          <nuxt-link class="subnav--link" :to="{ name: 'surveys-id-edit', params: { id: $route.params.id } }">기본정보</nuxt-link>
+          <nuxt-link class="subnav--link" :to="{ name: 'surveys-id-edit-questions', params: { id: $route.params.id } }">질문지</nuxt-link>
+        </ul>
+      </nav>
     </div>
-
-    <div class="flex items-stretch w-full">
-      <aside id="block-types" class="mr-4">
-        <div
-          v-for="(type, index) in blockTypes"
-          :key="index"
-          class="block--item"
-          style="min-width: 200px;"
-          @click="addBlockWithType(type)"
-        >
-          {{ type.label }}
-        </div>
-      </aside>
-
-      <main id="questions" class="flex-1 p-4">
-        <div v-if="questions.length === 0" class="w-full h-full flex items-center justify-center">질문이 없습니다.</div>
-
-        <form class="container mx-auto max-w-xl" @submit.prevent="update" v-else>
-          <div class="text-right mb-4">
-            <input type="submit" value="저장" class="button--grey cursor-pointer">
-          </div>
-          <draggable
-            v-model="questions"
-            handle=".drag-handle"
-            ghost-class="ghost"
-            @change="updated"
-          >
-            <div v-for="(element, index) in questions" :key="element._id" class="p-2 border-b mb-1 hover:shadow-xl">
-                <div class="mb-2">
-                  <div class="mb-2">
-                    <span class="drag-handle cursor-pointer">:::</span>
-                    <label class="text-xl">{{ element.label }} 질문</label>
-                  </div>
-                  <input type="text" v-model="element.question" class="form-input w-full" placeholder="질문을 입력하세요" required>
-                </div>
-                <!-- Checkbox -->
-                <template v-if="element.type === 'checkbox'">
-                  <div v-for="(option, index) in element.options" :key="index" class="flex justify-between">
-                    <label for="" class="flex-1 flex py-2 items-center mr-2">
-                      <input type="checkbox" class="form-checkbox" disabled>&nbsp;
-                      <input type="text" v-model="option.label" class="flex-1 form-input w-full">
-                    </label>
-                    <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
-                  </div>
-                  <button @click="element.options.push({ value: '', label: ''})">항목 추가</button>
-                </template>
-                <template v-if="element.type === 'radio'">
-                  <div v-for="(option, index) in element.options" :key="index" class="flex justify-between">
-                    <label for="" class="flex-1 flex py-2 items-center mr-2">
-                      <input type="radio" disabled>&nbsp;
-                      <input type="text" v-model="option.label" class="flex-1 form-input w-full" required>
-                    </label>
-                    <button @click="element.options.splice(index, 1)" class="text-red-600">X</button>
-                  </div>
-                  <div class="text-right">
-                    <button
-                      @click="element.options.push({ value: false, label: ''})"
-                      class="underline"
-                    >
-                      항목 추가
-                    </button>
-                  </div>
-                </template>
-                <template v-if="element.type === 'datetime'">
-                </template>
-                <template v-if="element.type === 'date'">
-                </template>
-                <template v-if="element.type === 'time'">
-                </template>
-                <div slot="footer" class="mt-4 text-right">
-                  <button @click="questions.splice(index, 1)" class="text-sm">이 질문 삭제</button>
-                </div>
-            </div>
-          </draggable>
-        </form>
-      </main>
-    </div>
+    <nuxt-child />
   </div>
 </template>
 
@@ -108,11 +24,14 @@ export default {
       url: `/surveys/${params.id}`,
     })
     const questions = data.questions || []
-    return { survey: data, questions }
+    let useDateLimit = false
+    if (data.startAt || data.endAt) {
+      useDateLimit = true
+    }
+    return { survey: data, questions, useDateLimit, startAt: data.startAt, endAt: data.endAt }
   },
   data() {
     return {
-      useDateLimit: false,
       blockTypes: [
         {
           type: 'string',
@@ -189,11 +108,18 @@ export default {
       return options
     },
     update () {
-      console.log('try update')
       const survey = {
         ...this.survey,
         questions: this.questions
       }
+      if (this.useDateLimit) {
+        survey.startAt = this.startAt
+        survey.endAt = this.endAt
+      } else {
+        survey.startAt = null
+        survey.endAt = null
+      }
+      console.log(survey)
       this.$axios({
         url: `/surveys/${this.survey._id}`,
         method: 'PUT',
@@ -202,9 +128,6 @@ export default {
       .then(response => {
         console.log(response)
       })
-    },
-    updated () {
-      console.log('updated')
     }
   }
 }

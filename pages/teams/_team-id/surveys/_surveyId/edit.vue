@@ -1,5 +1,6 @@
 <template>
-  <div></div>
+  <div class="container mx-auto max-w-xl">
+  </div>
 </template>
 
 <script>

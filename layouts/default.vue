@@ -142,7 +142,7 @@ html {
 }
 
 .block--item:hover {
-  @apply bg-gray-600 text-gray-100;
+  @apply bg-gray-600 text-gray-100 shadow-lg;
 }
 
 .card--item {
