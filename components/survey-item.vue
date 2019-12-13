@@ -36,8 +36,10 @@
 </template>
 
 <script>
-import { format, parseISO, getUnixTime } from 'date-fns'
-import { ko } from 'date-fns/locale'
+import format from 'date-fns/format'
+import parseISO from 'date-fns/parseISO'
+import getUnixTime from 'date-fns/getUnixTime'
+import ko from 'date-fns/locale/ko'
 import AnimatedNumber from "animated-number-vue"
 
 export default {
